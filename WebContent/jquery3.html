@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#btn").click(function() {
+			var su1 = $("#su1").val();
+			var su2 = $("#su2").val();
+			
+			//servlet과 연동해보자 ★★★★★★★★====>Ajax
+			
+			$.ajax({
+				url : "cs.do",
+				type : "post",
+				data : {
+					"su1" : su1,
+					"su2" : su2
+				},
+				dataType:"json",
+				success : resultHtml, //callback함수
+				error : function() {
+					alert("error");
+				}
+				
+			});
+			
+		});
+		
+	});
+
+	function resultHtml(data) {
+		
+		var html="";
+		//★★★★★each===반복문임★★★★★
+ 	 	$.each(data,function(index,obj){
+ 	 		html+=obj.num+":";
+ 	 		html+=obj.irum+":";
+ 	 		html+=obj.age+":";
+ 	 		html+=obj.email+":";
+ 	 		html+=obj.intro+"<br/>";
+ 	 		
+ 	 	})
+ 	 	$("#msg").html(html);
+	}
+</script>
+</head>
+<body>
+
+
+	<input type="text" id="su1" />~
+	<input type="text" id="su2" />=
+	<input type="text" id="result" />
+	<input type="button" id="btn" value="계산" />
+	<div id="msg"></div>
+	
+	
+
+</body>
+</html>
